@@ -4,6 +4,8 @@ import com.smtcontrolweb.loginapiaa5ev01.model.Usuario;
 import com.smtcontrolweb.loginapiaa5ev01.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 // Esta clase contiene la lógica de los servicios relacionados con los usuarios
 @Service
 public class UsuarioService {
@@ -19,6 +21,11 @@ public class UsuarioService {
     // Guarda un nuevo usuario en la base de datos
     public Usuario guardarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
+    }
+
+    // Obtener todos los usuarios
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
     }
 
     // Busca un usuario registrado mediante su correo

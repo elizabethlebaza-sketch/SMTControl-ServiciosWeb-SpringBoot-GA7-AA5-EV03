@@ -4,6 +4,8 @@ import com.smtcontrolweb.loginapiaa5ev01.model.Usuario;
 import com.smtcontrolweb.loginapiaa5ev01.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 // Esta clase controla las peticiones relacionadas con los usuarios
 @RestController
 @RequestMapping("/usuarios")
@@ -22,6 +24,12 @@ public class UsuarioController {
     @PostMapping("/registro")
     public Usuario registrarUsuario(@RequestBody Usuario usuario) {
         return usuarioService.guardarUsuario(usuario);
+    }
+
+    // Listar todos los usuarios registrados
+    @GetMapping("/listar")
+    public List<Usuario> listarUsuarios() {
+        return usuarioService.listarUsuarios();
     }
 
     // Endpoint para buscar un usuario por medio del correo
@@ -48,3 +56,4 @@ public class UsuarioController {
         return "Error en la autenticación";
     }
 }
+
