@@ -5,6 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 // Esta clase representa la entidad Usuario que se almacena en la tabla usuario de MySQL
 @Entity
@@ -27,6 +29,11 @@ public class Usuario {
 
     // Contraseña del usuario para validar el inicio de sesión
     private String contrasena;
+
+    // Cliente al que pertenece el usuario
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
     // Método para obtener el identificador del usuario
     public Integer getIdUsuario() {
@@ -76,5 +83,15 @@ public class Usuario {
     // Método para asignar la contraseña del usuario
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    // Obtener el cliente asociado al usuario
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    // Asignar el cliente al usuario
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }
