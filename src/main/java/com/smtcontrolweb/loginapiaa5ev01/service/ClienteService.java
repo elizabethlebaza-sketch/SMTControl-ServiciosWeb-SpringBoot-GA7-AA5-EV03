@@ -26,4 +26,26 @@ public class ClienteService {
     public List<Cliente> listarClientes() {
         return clienteRepository.findAll();
     }
+
+    // Actualizar un cliente existente
+    public Cliente actualizarCliente(Integer id, Cliente cliente) {
+
+        Cliente clienteExistente = clienteRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+        clienteExistente.setNombre(cliente.getNombre());
+        clienteExistente.setTipo(cliente.getTipo());
+        clienteExistente.setNit(cliente.getNit());
+        clienteExistente.setCorreo(cliente.getCorreo());
+        clienteExistente.setTelefono(cliente.getTelefono());
+        clienteExistente.setDireccion(cliente.getDireccion());
+        clienteExistente.setFechaInicioLicencia(
+                cliente.getFechaInicioLicencia());
+        clienteExistente.setFechaFinLicencia(
+                cliente.getFechaFinLicencia());
+        clienteExistente.setEstado(cliente.getEstado());
+
+        return clienteRepository.save(clienteExistente);
+    }
 }

@@ -31,6 +31,10 @@ public class Reserva {
     // Estado de la reserva
     private String estado;
 
+    // Área común seleccionada para la reserva
+    @Column(name = "id_areas_comunes")
+    private Integer idAreasComunes;
+
     // Constructor vacío
     public Reserva() {
     }
@@ -83,5 +87,13 @@ public class Reserva {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Integer getIdAreasComunes() {
+        return idAreasComunes;
+    }
+
+    public void setIdAreasComunes(Integer idAreasComunes) {
+        this.idAreasComunes = idAreasComunes;
     }
 }

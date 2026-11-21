@@ -30,4 +30,14 @@ public class ClienteController {
     public List<Cliente> listarClientes() {
         return clienteService.listarClientes();
     }
+
+    // Actualizar un cliente existente
+    @PutMapping("/actualizar/{id}")
+    public Cliente actualizarCliente(
+            @PathVariable Integer id,
+            @RequestBody Cliente cliente) {
+
+        return clienteService.actualizarCliente(id, cliente);
+    }
+
 }

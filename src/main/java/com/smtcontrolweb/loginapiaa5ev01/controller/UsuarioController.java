@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import java.util.Map;
+
 // Esta clase controla las peticiones relacionadas con los usuarios
 @RestController
 @RequestMapping("/usuarios")
@@ -38,9 +40,30 @@ public class UsuarioController {
         return usuarioService.buscarPorCorreo(correo);
     }
 
+    // Endpoint para actualizar un usuario existente.
+    @PutMapping("/{id}")
+    public Usuario actualizarUsuario(
+            @PathVariable Integer id,
+            @RequestBody Usuario usuario) {
+
+        return usuarioService.actualizarUsuario(id, usuario);
+    }
+
+    // Endpoint para eliminar un usuario existente.
+    @DeleteMapping("/{id}")
+    public Map<String, String> eliminarUsuario(@PathVariable Integer id) {
+
+        // Eliminar el usuario mediante el servicio.
+        usuarioService.eliminarUsuario(id);
+
+        // Informar que la eliminación fue exitosa.
+        return Map.of(
+                "mensaje", "Usuario eliminado correctamente.");
+    }
+
     // Endpoint para validar el inicio de sesión del usuario
     @PostMapping("/login")
-    public String login(@RequestBody Usuario usuario) {
+    public Map<String, String> login(@RequestBody Usuario usuario) {
 
         // Busca el usuario en la base de datos utilizando el correo recibido
         Usuario usuarioEncontrado = usuarioService.buscarPorCorreo(usuario.getCorreo());
@@ -49,11 +72,15 @@ public class UsuarioController {
         if (usuarioEncontrado != null &&
                 usuarioEncontrado.getContrasena().equals(usuario.getContrasena())) {
 
-            return "Autenticación satisfactoria";
+            // Devuelve el mensaje de autenticación y el rol del usuario
+            return Map.of(
+                    "mensaje", "Autenticación satisfactoria",
+                    "rol", usuarioEncontrado.getRol());
         }
 
-        // Mensaje cuando los datos ingresados no coinciden
-        return "Error en la autenticación";
+        // Devuelve el mensaje cuando los datos no coinciden
+        return Map.of(
+                "mensaje", "Error en la autenticación",
+                "rol", "");
     }
 }
-

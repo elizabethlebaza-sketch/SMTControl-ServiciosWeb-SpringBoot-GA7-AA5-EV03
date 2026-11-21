@@ -9,6 +9,7 @@ import java.util.List;
 // Controlador para administrar los servicios de visitantes
 @RestController
 @RequestMapping("/visitantes")
+@CrossOrigin(origins = "*")
 public class VisitanteController {
 
     private final VisitanteService visitanteService;
@@ -28,5 +29,21 @@ public class VisitanteController {
     @GetMapping("/listar")
     public List<Visitante> listarVisitantes() {
         return visitanteService.listarVisitantes();
+    }
+
+    // Actualizar un visitante existente
+    @PutMapping("/{id}")
+    public Visitante actualizarVisitante(
+            @PathVariable Long id,
+            @RequestBody Visitante visitante) {
+
+        return visitanteService.actualizarVisitante(id, visitante);
+    }
+
+    // Eliminar un visitante existente
+    @DeleteMapping("/{id}")
+    public void eliminarVisitante(@PathVariable Long id) {
+
+        visitanteService.eliminarVisitante(id);
     }
 }
