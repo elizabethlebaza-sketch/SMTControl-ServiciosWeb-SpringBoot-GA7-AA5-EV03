@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 // Esta clase representa la entidad Usuario que se almacena en la tabla usuario de MySQL
 @Entity
@@ -27,6 +28,7 @@ public class Usuario {
     // Rol asignado al usuario dentro del sistema
     private String rol;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     // Contraseña del usuario para validar el inicio de sesión
     private String contrasena;
 
